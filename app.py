@@ -1,6 +1,10 @@
-import streamlit as st 
+import streamlit as st
+import time
 from streamlit_tags import st_tags
 from PIL import Image
+import pymysql
+import mysql.connector
+
 
 st.set_page_config(
    page_title="Smart Resume Analyzer",
@@ -23,4 +27,13 @@ if choice == 'User':
         with st.spinner('Uploading your Resume...'):
             time.sleep(4)
         save_image_path = './Uploaded_Resumes/' + pdf_file.name
+
+
+# Connect to the database
+connection = pymysql.connect(host='localhost',
+                             user='root',
+                             password='local',
+                             database='db',
+                             cursorclass=pymysql.cursors.DictCursor)
+
 
