@@ -29,11 +29,39 @@ if choice == 'User':
         save_image_path = './Uploaded_Resumes/' + pdf_file.name
 
 
-# Connect to the database
-connection = pymysql.connect(host='localhost',
-                             user='root',
-                             password='local',
-                             database='db',
-                             cursorclass=pymysql.cursors.DictCursor)
+# # Connect to the database
+# connection = pymysql.connect(host='localhost',
+#                              user='root',
+#                              password='local',
+#                              database='db',
+#                              cursorclass=pymysql.cursors.DictCursor)
+
+connection = pymysql.connect(host='localhost',user='root',password='local',db='db')
+cursor = connection.cursor()
+
+
+db_sql = """CREATE DATABASE IF NOT EXISTS db;"""
+cursor.execute(db_sql)
+
+    # Create table
+DB_table_name = 'user_data'
+table_sql = "CREATE TABLE IF NOT EXISTS " + DB_table_name + """
+                    (ID INT NOT NULL AUTO_INCREMENT,
+                     Name varchar(500) NOT NULL,
+                     Email_ID VARCHAR(500) NOT NULL,
+                     resume_score VARCHAR(8) NOT NULL,
+                     Timestamp VARCHAR(50) NOT NULL,
+                     Page_no VARCHAR(5) NOT NULL,
+                     Predicted_Field BLOB NOT NULL,
+                     User_level BLOB NOT NULL,
+                     Actual_skills BLOB NOT NULL,
+                     Recommended_skills BLOB NOT NULL,
+                     Recommended_courses BLOB NOT NULL,
+                     PRIMARY KEY (ID));
+                    """
+cursor.execute(table_sql)
+
+
+
 
 
